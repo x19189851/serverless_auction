@@ -1,0 +1,18 @@
+AuctionsBucketIAM:
+  Effect: Allow
+  Action:
+    - s3:PutObject
+  Resource: arn:aws:s3:::${self:custom.AuctionsBucket.name}/*
+
+AuctionsBucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  Properties:
+    Bucket: !Ref AuctionsBucket # reference to logic name
+    PolicyDocument:
+      Statement:
+        - Sid: PublicRead
+          Effect: Allow
+          Principal: '*'
+          Action:
+            - s3:GetObject # get pictures
+          Resource: arn:aws:s3:::${self:custom.AuctionsBucket.name}/* # /* refer to any subfolder  
